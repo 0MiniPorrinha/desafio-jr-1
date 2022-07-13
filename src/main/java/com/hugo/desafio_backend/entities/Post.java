@@ -66,11 +66,11 @@ public class Post implements Serializable{
         this.body = body;
     }
 
-    public LocalDateTime getCreated_at() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
