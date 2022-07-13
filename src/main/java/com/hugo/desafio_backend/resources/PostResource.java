@@ -3,6 +3,7 @@ package com.hugo.desafio_backend.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ public class PostResource {
     @GetMapping
     public ResponseEntity<List<Post>> findAll(){
         List<Post> list = service.findAll();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/ordered")
+    public ResponseEntity<List<Post>> findAllByDate(){
+        List<Post> list = service.findAllByDate();
         return ResponseEntity.ok(list);
     }
 }

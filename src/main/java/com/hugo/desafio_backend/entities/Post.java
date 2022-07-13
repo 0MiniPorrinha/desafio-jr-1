@@ -1,8 +1,13 @@
 package com.hugo.desafio_backend.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Post implements Serializable{
@@ -14,19 +19,19 @@ public class Post implements Serializable{
     private String title;
     private String description;
     private String body;
-    private Date created_at;
-    private Date update_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 
     public Post(){
     }
 
-    public Post(Long id, String title, String description, String body, Date created_at, Date update_at) {
+    public Post(Long id, String title, String description, String body, LocalDateTime createdAt, LocalDateTime updateAt) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.body = body;
-        this.created_at = created_at;
-        this.update_at = update_at;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
     }
 
     public Long getId() {
@@ -61,20 +66,20 @@ public class Post implements Serializable{
         this.body = body;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreated_at() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreated_at(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getUpdate_at() {
-        return update_at;
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
     }
 
-    public void setUpdate_at(Date update_at) {
-        this.update_at = update_at;
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
     }
 
     @Override
