@@ -1,7 +1,6 @@
 package com.hugo.desafio_backend.resources;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.hugo.desafio_backend.entities.Post;
 import com.hugo.desafio_backend.entities.dto.PostDTO;
 import com.hugo.desafio_backend.services.PostService;
@@ -56,5 +57,13 @@ public class PostResource {
             .path("/{id}").buildAndExpand(post.getId()).toUri();
 
         return ResponseEntity.created(uri).body(post);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Post> update(@RequestBody PostDTO postDTO, @PathVariable Long id){
+        service.findById(id);
+        service.update(id, postDTO);
+
+        return ResponseEntity.noContent().build();
     }
 }

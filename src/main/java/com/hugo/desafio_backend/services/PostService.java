@@ -43,4 +43,17 @@ public class PostService {
 
         return repository.save(post);
     }
+
+    public Post update(Long id, PostDTO postDTO){
+        Post post = repository.getReferenceById(id);
+        updateData(post, postDTO);
+        return repository.save(post);
+    }
+
+    private void updateData(Post post, PostDTO postDTO) {
+        post.setTitle(postDTO.getTitle());
+        post.setDescription(postDTO.getDescription());
+        post.setBody(postDTO.getBody());
+        post.setUpdateAt(LocalDateTime.now());
+    }
 }
