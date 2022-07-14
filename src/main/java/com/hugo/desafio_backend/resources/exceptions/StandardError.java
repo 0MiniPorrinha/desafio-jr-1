@@ -1,15 +1,15 @@
 package com.hugo.desafio_backend.resources.exceptions;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class StandardError implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant timestamp;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime timestamp;
     private Integer status;
     private String error;
     private String path;
@@ -17,18 +17,18 @@ public class StandardError implements Serializable{
     public StandardError(){
     }
 
-    public StandardError(Instant timestamp, Integer status, String error, String path) {
+    public StandardError(LocalDateTime timestamp, Integer status, String error, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
         this.path = path;
     }
 
-    public Instant getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

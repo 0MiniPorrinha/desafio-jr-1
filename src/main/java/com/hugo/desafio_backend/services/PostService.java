@@ -44,7 +44,13 @@ public class PostService {
         return repository.save(post);
     }
 
+    public void delete(Long id){
+        findById(id);
+        repository.deleteById(id);
+    }
+
     public Post update(Long id, PostDTO postDTO){
+        findById(id);
         Post post = repository.getReferenceById(id);
         updateData(post, postDTO);
         return repository.save(post);

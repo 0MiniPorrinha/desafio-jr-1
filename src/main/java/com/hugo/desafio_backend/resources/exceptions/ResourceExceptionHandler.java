@@ -1,7 +1,7 @@
 package com.hugo.desafio_backend.resources.exceptions;
 
-import java.net.http.HttpRequest;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +19,7 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request){
 
         HttpStatus status = HttpStatus.NOT_FOUND;
-        StandardError err = new StandardError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        StandardError err = new StandardError(LocalDateTime.now(), status.value(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(status).body(err);
     }

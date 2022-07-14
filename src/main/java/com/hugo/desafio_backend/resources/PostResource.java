@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,11 +61,16 @@ public class PostResource {
         return ResponseEntity.created(uri).body(post);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Post> update(@RequestBody PostDTO postDTO, @PathVariable Long id){
-        service.findById(id);
-        service.update(id, postDTO);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
 
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@RequestBody PostDTO postDTO, @PathVariable Long id){
+        service.update(id, postDTO);
         return ResponseEntity.noContent().build();
     }
 }
