@@ -33,12 +33,4 @@ public class ResourceExceptionHandler {
             return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<StandardError> exception(Exception e ,HttpServletRequest request){
-
-            HttpStatus status = HttpStatus.BAD_REQUEST;
-            StandardError err = new StandardError(LocalDateTime.now(), status.value(), e.getMessage(), request.getRequestURI());
-
-            return ResponseEntity.status(status).body(err);
-    }
 }

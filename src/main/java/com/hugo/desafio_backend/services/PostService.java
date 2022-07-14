@@ -37,9 +37,15 @@ public class PostService {
         }
     }
 
-    public List<Post> findAllDesc(Integer pageNumber, Integer pageSize, String sortBy){
+    public List<Post> findAllData(Integer pageNumber, Integer pageSize, String sortByData){
 
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        Pageable paging;
+
+        if("desc".equals(sortByData)){
+            paging = PageRequest.of(pageNumber, pageSize, Sort.by("updateAt").descending());
+        }else{
+            paging = PageRequest.of(pageNumber, pageSize, Sort.by("updateAt").ascending());
+        }
 
         Page<Post> pagedResult = repository.findAll(paging);
 

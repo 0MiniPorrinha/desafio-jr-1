@@ -40,13 +40,13 @@ public class PostResource {
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/desc")
+    @GetMapping(value = "/data")
     public ResponseEntity<List<Post>> findAllDesc(
         @RequestParam(defaultValue = "0") Integer pageNumber, 
         @RequestParam(defaultValue = "5") Integer pageSize,
-        @RequestParam(defaultValue = "id") String sortBy){
+        @RequestParam(defaultValue = "asc") String sortByData){
 
-        List<Post> list = service.findAllDesc(pageNumber, pageSize, sortBy);
+        List<Post> list = service.findAllData(pageNumber, pageSize, sortByData);
         
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
