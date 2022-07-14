@@ -1,5 +1,6 @@
 package com.hugo.desafio_backend.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hugo.desafio_backend.entities.Post;
+import com.hugo.desafio_backend.entities.dto.PostDTO;
 import com.hugo.desafio_backend.repositories.PostRepository;
 import com.hugo.desafio_backend.services.exception.ResourceNotFoundException;
 
@@ -22,8 +24,12 @@ public class PostService {
         return repository.findAll();
     }
 
-    public List<Post> findAllByDate(){
+    public List<Post> findAllByDateASC(){
         return repository.findAll(Sort.by(Sort.Direction.ASC, "updateAt"));
+    }
+
+    public List<Post> findAllByDateDESC(){
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "updateAt"));
     }
 
     public Post findById(Long id){
@@ -31,7 +37,10 @@ public class PostService {
         return post.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Post insert(Post post){
+    public Post insert(PostDTO postDTO){
+        Post post = new Post(null, postDTO.getTitle(), postDTO.getDescription()
+            , postDTO.getBody(), LocalDateTime.now(), LocalDateTime.now());
+
         return repository.save(post);
     }
 }

@@ -9,13 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.hugo.desafio_backend.entities.Post;
+import com.hugo.desafio_backend.entities.dto.PostDTO;
 import com.hugo.desafio_backend.services.PostService;
 
 @RestController
@@ -31,9 +30,15 @@ public class PostResource {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping(value = "/ordered")
-    public ResponseEntity<List<Post>> findAllByDate(){
-        List<Post> list = service.findAllByDate();
+    @GetMapping(value = "/asc")
+    public ResponseEntity<List<Post>> findAllByDateASC(){
+        List<Post> list = service.findAllByDateASC();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/desc")
+    public ResponseEntity<List<Post>> findAllByDateDESC(){
+        List<Post> list = service.findAllByDateDESC();
         return ResponseEntity.ok(list);
     }
 
@@ -44,10 +49,9 @@ public class PostResource {
     }
 
     @PostMapping
-    public ResponseEntity<Post> insert(@RequestBody Post post){
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdateAt(LocalDateTime.now());
-        post = service.insert(post);
+    public ResponseEntity<Post> insert(@RequestBody PostDTO postDTO){
+        
+        Post post = service.insert(postDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}").buildAndExpand(post.getId()).toUri();
 
