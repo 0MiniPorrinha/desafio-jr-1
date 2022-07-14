@@ -33,16 +33,21 @@ public class PostService {
         if(pagedResult.hasContent()){
             return pagedResult.getContent();
         }else{
-            return new ArrayList<Post>();
+            return new ArrayList<>();
         }
     }
 
-    public List<Post> findAllByDateASC(){
-        return repository.findAll(Sort.by(Sort.Direction.ASC, "updateAt"));
-    }
+    public List<Post> findAllDesc(Integer pageNumber, Integer pageSize, String sortBy){
 
-    public List<Post> findAllByDateDESC(){
-        return repository.findAll(Sort.by(Sort.Direction.DESC, "updateAt"));
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+
+        Page<Post> pagedResult = repository.findAll(paging);
+
+        if(pagedResult.hasContent()){
+            return pagedResult.getContent();
+        }else{
+            return new ArrayList<>();
+        }
     }
 
     public Post findById(Long id){

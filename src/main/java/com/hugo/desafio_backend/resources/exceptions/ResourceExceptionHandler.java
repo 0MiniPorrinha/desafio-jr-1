@@ -1,6 +1,5 @@
 package com.hugo.desafio_backend.resources.exceptions;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,5 +21,24 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(LocalDateTime.now(), status.value(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<StandardError> numberFormat(HttpServletRequest request){
+
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            StandardError err = new StandardError(LocalDateTime.now(), status.value(), "Id url only supported numbers", 
+                request.getRequestURI());
+
+            return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<StandardError> exception(Exception e ,HttpServletRequest request){
+
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            StandardError err = new StandardError(LocalDateTime.now(), status.value(), e.getMessage(), request.getRequestURI());
+
+            return ResponseEntity.status(status).body(err);
     }
 }

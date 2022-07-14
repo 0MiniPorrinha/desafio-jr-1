@@ -32,7 +32,7 @@ public class PostResource {
     @GetMapping
     public ResponseEntity<List<Post>> findAll(
         @RequestParam(defaultValue = "0") Integer pageNumber, 
-        @RequestParam(defaultValue = "4") Integer pageSize,
+        @RequestParam(defaultValue = "5") Integer pageSize,
         @RequestParam(defaultValue = "id") String sortBy){
 
         List<Post> list = service.findAll(pageNumber, pageSize, sortBy);
@@ -40,19 +40,18 @@ public class PostResource {
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/asc")
-    public ResponseEntity<List<Post>> findAllByDateASC(){
-        List<Post> list = service.findAllByDateASC();
-        return ResponseEntity.ok(list);
-    }
-
     @GetMapping(value = "/desc")
-    public ResponseEntity<List<Post>> findAllByDateDESC(){
-        List<Post> list = service.findAllByDateDESC();
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<Post>> findAllDesc(
+        @RequestParam(defaultValue = "0") Integer pageNumber, 
+        @RequestParam(defaultValue = "5") Integer pageSize,
+        @RequestParam(defaultValue = "id") String sortBy){
+
+        List<Post> list = service.findAllDesc(pageNumber, pageSize, sortBy);
+        
+        return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id:^[0-9]+$}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Post> findById(@PathVariable Long id){
         Post post = service.findById(id);
         return ResponseEntity.ok(post);
